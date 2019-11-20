@@ -8,7 +8,6 @@ import {
     Cascader,
 } from 'antd'
 import MyButton from '../button/button';
-// import PictureWall from './picture-wall';
 import PictureWall from '../../containers/picture-wall';
 import RichTextEditor from '../rich-text-editor/rich-text-editor';
 
@@ -92,7 +91,7 @@ export default function ProductAdd(props) {
                    <PictureWall /*ref={pw}*//>
                 </Item>
                 <Item  label="商品详情" labelCol={{span: 2}} wrapperCol={{span: 18}}>
-                   <RichTextEditor ref={editor}/>
+                   <RichTextEditor ref={editor} detail={detail}/>
                 </Item>
                 <Item labelCol={{span: 2}}>
                     <Button type="primary" onClick={()=>{submitAddProduct()}}>提交</Button>
