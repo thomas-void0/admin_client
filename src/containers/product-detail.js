@@ -36,19 +36,26 @@ export class ProductDetail extends Component {
     
     render() {
         let {
-            history,
-            location
-        }=this.props
-        let {
             firstCategory,
             secondCategory
         }=this.state
+        let {
+            name,
+            desc,
+            detail,
+            imgs,
+            price
+        }=this.props.location.state
         return (
             <ProductDetailUI 
-                history={history}
-                location={location.state}
+                history={this.props.history}
                 firstCategory={firstCategory}
                 secondCategory={secondCategory}
+                name={name}
+                desc={desc}
+                detail={detail}
+                imgs={imgs}
+                price={price}
             />
         )
     }
