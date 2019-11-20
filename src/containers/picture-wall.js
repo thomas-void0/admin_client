@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { message } from 'antd';
-import PictureWallUI from '../component/product/picture-wall2';
+import PictureWallUI from '../component/product/picture-wall';
 import {changeFileListAction} from '../actions/actionOperations/action-picture-wall-operation'
 import { reqDeleteImg } from '../api';
 

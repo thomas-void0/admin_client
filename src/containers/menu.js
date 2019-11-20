@@ -46,7 +46,6 @@ export class MenuCon extends Component {
         })
     }
     UNSAFE_componentWillMount(){
-        console.log("xxxxxxxxx")
         //初始化菜单
         const initData = this.initMenu(MenuList);
         this.setState({
@@ -54,7 +53,7 @@ export class MenuCon extends Component {
         })
     }
     render() {
-        console.log("xcccccccccc")
+        console.log("sadfaaaaaa")
         return (
             <MenuUi />
         )

@@ -24,7 +24,10 @@ export class Admin extends Component {
     }
     // 获得初始化展开的菜单key
     getOpenKey = ()=>{
-        const pathname = this.props.history.location.pathname;
+        let pathname = this.props.history.location.pathname;
+        if(pathname.indexOf("/product") === 0){ //当前的请求是商品或者商品的子路由
+            pathname="/product"
+        }
         let key = null;
         menuList.forEach(item=>{
             if(item.children instanceof Array){
@@ -32,11 +35,11 @@ export class Admin extends Component {
                     return cItem.key === pathname
                 })
                 if(cItem){
-                    key = item.key
+                    key = (pathname==="/product" ? "/products": item.key)
                 }
             }
         })
-        return key
+        return {key,pathname}
     }
     // 初始化菜单
     initMenu=list=>{
@@ -128,9 +131,8 @@ export class Admin extends Component {
         if(!user || !user._id){ //如果检测用户没有登陆，那么重定向到登陆页面
             return <Redirect to="/login"/>
         }
-        const navTitle = this.getNavTitle();
-        const pathname = this.props.history.location.pathname
-        const openKey = this.getOpenKey();
+        const navTitle = this.getNavTitle();     
+        const {key,pathname} = this.getOpenKey();
         return (
             <AdminUI 
                 initDom={this.state.initDom}
@@ -141,7 +143,7 @@ export class Admin extends Component {
                 username={user.username}
                 navTitle={navTitle}
                 selectKey = {pathname}
-                openKey={openKey}
+                openKey={key}
             />
         )
     }

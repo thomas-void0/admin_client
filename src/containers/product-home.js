@@ -4,9 +4,10 @@ import ProductHomeUI from '../component/product/product-home';
 import MyButton from '../component/button/button';
 import { 
     Button,
-    Form
+    Form,
+    message
 } from 'antd';
-import {reqProducts,reqSearchProducts} from '../api'
+import {reqProducts,reqSearchProducts,reqUpdateStatus} from '../api'
 
 
 export class ProductHome extends Component {
@@ -20,7 +21,8 @@ export class ProductHome extends Component {
             data:[],/*商品信息*/
             loading:false,/*加载动画*/
             searchType:"productName",/*搜索类型*/
-            searchName:""/*关键词*/
+            searchName:"",/*关键词*/
+            pageNum:""/*保存当前的页码*/
         }
     }
     /*初始化表格列的数组*/
@@ -43,11 +45,17 @@ export class ProductHome extends Component {
             {
                 title: '状态',
                 width:100,
-                render:(status)=> {
+                render:(product)=> {
+                    const {status,_id}=product;
+                    const newState = status === 1 ? 2 : 1;
                     return(
                         <span>
-                            <Button type="primary">下架</Button>
-                            <span>在售</span>
+                            <Button 
+                                type="primary" 
+                                onClick={()=>{this.updateStatus(_id,newState)}}>
+                                {status ===  1? "下架" : "上架"}
+                            </Button>
+                            <span>{status===1 ? "在售" : "已下架"}</span>
                         </span>
                     )
                 }
@@ -55,11 +63,11 @@ export class ProductHome extends Component {
             {
                 title: '操作',
                 width:100,
-                render:(status)=> {
+                render:(product)=> {
                     return(
                         <span>
-                            <MyButton>详情</MyButton>
-                            <MyButton>修改</MyButton>
+                            <MyButton onClick={()=>this.props.history.push("/product/detail",product)}>详情</MyButton>
+                            <MyButton onClick={()=>{this.changeInfo(product)}}>修改</MyButton>
                         </span>
                     )
                 }
@@ -70,12 +78,18 @@ export class ProductHome extends Component {
             products:columns
         })
     }
-    // 初始化搜索框
-    // initFindInput = ()=>{
-    //     return(
-
-    //     )
-    // }
+    /*修改商品信息*/
+    changeInfo = (product)=>{
+        this.props.history.push("/product/add",product)/*将数据携带到添加界面中*/
+    }
+    /*更新状态*/
+    updateStatus = async (id,status)=>{
+      const result = await reqUpdateStatus(id,status)
+      if(result.status === 0){
+        message.success("更新商品状态成功",1);
+        this.getProductInfo(this.state.pageNum)
+      }
+    }
     /*关键词输入框监听事件*/
     handleKeyWordsInput =(event)=>{
         this.setState({
@@ -100,7 +114,8 @@ export class ProductHome extends Component {
     getProductInfo = async(pageNum)=>{
         /*如果关键词存在，说明是进行搜索*/
         this.setState({
-            loading:true
+            loading:true,
+            pageNum /*更新当前显示的页码信息*/
         })
         let result = null;
         const {searchName,searchType} = this.state;

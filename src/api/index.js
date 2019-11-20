@@ -25,6 +25,14 @@ export const reqProducts =(pageNum,pageSize)=>{
 export const reqSearchProducts = (pageNum,pageSize,searchName,searchType)=>{
     return Ajax("/manage/product/search",{pageNum,pageSize,[searchType]:searchName},"GET")
 }
+//根据id获取分类
+export const reqGetCategory = (categoryId)=>{
+    return Ajax("/manage/category/info",{categoryId},"GET")
+}
+//更新商品的状态，上架/下架
+export const reqUpdateStatus = (productId,status)=>{
+    return Ajax("/manage/product/updateStatus",{productId,status},"POST")
+}
 //删除图片
 export const reqDeleteImg = (name) =>{
     return Ajax('/manage/img/delete',{name},"POST");

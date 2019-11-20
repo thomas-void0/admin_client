@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ProductAddUI from '../component/product/product-add2'
+import ProductAddUI from '../component/product/product-add'
 import {Form,message} from 'antd'
 import {reqCategoryData,reqAddOrUpdateProduct} from '../api'
 import {getFileListAction} from '../actions/actionOperations/action-picture-wall-operation';
@@ -9,7 +9,11 @@ export class ProductAdd extends Component {
     constructor(props){
         super(props)
         this.state={
-            options:[]
+            options:[],
+            name:null,
+            desc:null,
+            detail:null,
+            price:null,
         }
         // this.pw = React.createRef();
         this.editor = React.createRef();
@@ -109,8 +113,26 @@ export class ProductAdd extends Component {
     componentDidMount() {
         this.getCategorys("0")
     }
+    UNSAFE_componentWillMount(){
+        const product = this.props.location.state;
+        if(product instanceof Object){
+            const {name,desc,detail,price} = product
+            this.setState({
+                name,
+                desc,
+                detail,
+                price
+            })
+        }
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
+        let {
+            name,
+            desc,
+            detail,
+            price
+        }=this.state
         return (
             <ProductAddUI 
                 getFieldDecorator={getFieldDecorator}
@@ -121,6 +143,10 @@ export class ProductAdd extends Component {
                 goBackToHome={this.goBackToHome}
                 // pw={this.pw}
                 editor={this.editor}
+                name={name}
+                desc={desc}
+                detail={detail}
+                price={price}
             />
         )
     }
