@@ -41,6 +41,34 @@ export const reqDeleteImg = (name) =>{
 export const reqAddOrUpdateProduct = (product)=>{
     return Ajax("/manage/product/"+(product._id ? "update" : "add"),product,"POST")
 }
+// 获取所有角色的列表
+export const reqGetRoles = ()=>{
+    return Ajax('/manage/role/list',null,"GET")
+}
+// 添加角色
+export const reqAddRole = (roleName)=>{
+    return Ajax("/manage/role/add",{roleName},"POST")
+}
+//赋予角色权限
+export const reqGetAuth = ({_id,menus,auth_time,auth_name})=>{
+    return Ajax("/manage/role/update",{_id,menus,auth_time,auth_name},"POST")
+}
+//获取用户列表
+export const reqGetUser = ()=>{
+    return Ajax('/manage/user/list',null,"GET")
+}
+//添加用户
+export const reqAddUser = ({username,password,phone,email,role_id})=>{
+    return Ajax("/manage/user/add",{username,password,phone,email,role_id},"POST")
+}
+//删除用户
+export const reqDeleteUser = (userId)=>{
+    return Ajax("/manage/user/delete",{userId},"POST")
+}
+//修改用户
+export const reqUpdateUser = ({username,_id,phone,email,role_id})=>{
+    return Ajax("/manage/user/update",{username,_id,phone,email,role_id},"POST")
+}
 // jsonp请求
 export const reqWeather = (city)=>{
     const url =`http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`;

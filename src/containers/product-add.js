@@ -14,6 +14,7 @@ export class ProductAdd extends Component {
             desc:null,
             detail:null,
             price:null,
+            imgs:null
         }
         // this.pw = React.createRef();
         this.editor = React.createRef();
@@ -56,12 +57,9 @@ export class ProductAdd extends Component {
             /*2,调用接口请求函数添加和更新*/ 
             const result = await reqAddOrUpdateProduct(product)
             if(result.status === 0){
-                // message.success(`${this.product._id ? "更新" : "添加"}商品成功`)
-                message.success("商品添加成功")
+                message.success(`${this.product._id ? "更新" : "添加"}商品成功`)
             }else{
-                // message.error(`${this.product._id ? "更新" : "添加"}商品失败`)
-                message.error("商品添加失败")
-
+                message.error(`${this.product._id ? "更新" : "添加"}商品失败`)
             }
           }
         });
@@ -114,14 +112,18 @@ export class ProductAdd extends Component {
         this.getCategorys("0")
     }
     UNSAFE_componentWillMount(){
-        const product = this.props.location.state;
-        if(product instanceof Object){
-            const {name,desc,detail,price} = product
+        this.product = this.props.location.state;
+        if(!this.product){
+            this.product = {}
+        }
+        if(this.product instanceof Object){
+            const {name,desc,detail,price,imgs} = this.product
             this.setState({
                 name,
                 desc,
                 detail,
-                price
+                price,
+                imgs
             })
         }
     }
@@ -131,7 +133,8 @@ export class ProductAdd extends Component {
             name,
             desc,
             detail,
-            price
+            price,
+            imgs
         }=this.state
         return (
             <ProductAddUI 
@@ -147,6 +150,7 @@ export class ProductAdd extends Component {
                 desc={desc}
                 detail={detail}
                 price={price}
+                imgs={imgs}
             />
         )
     }

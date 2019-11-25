@@ -5,7 +5,7 @@ export default (state = defaultTime,action)=>{
     let newState = JSON.parse(JSON.stringify(state))
     switch (action.type) {
         case CHANGE_TIME:
-            newState ={time:getTimeNow()}
+            newState ={time:getTimeNow(new Date)}
             return newState
         default:
             return newState

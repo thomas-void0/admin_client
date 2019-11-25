@@ -30,7 +30,11 @@ export default function ProductDetail(props) {
         {key:"商品名称:",value:name},
         {key:"商品描述:",value:desc},
         {key:"商品价格:",value:price},
-        {key:"所属分类:",value:firstCategory + (secondCategory ? "--->"+ secondCategory : null)},
+        {
+            key:"所属分类:",
+            value:(firstCategory ?  (firstCategory + "--->") : '') + 
+                (secondCategory ? secondCategory : null)
+        },
         {key:"商品图片:",value:imgs},
         {key:"商品详情:",value:detail},
     ]
@@ -40,7 +44,7 @@ export default function ProductDetail(props) {
                 {dataArr.map((item,index)=>{
                     if(item.value instanceof Array){
                         return (
-                            <Item className="left">
+                            <Item className="left" key={index}>
                                 <span>商品图片:</span>
                                 <span>
                                     {imgs.map((item,index)=>
@@ -56,7 +60,7 @@ export default function ProductDetail(props) {
                         )
                     }else if(item.key==="商品详情:"){
                         return(
-                            <Item className="left">
+                            <Item className="left" key={index}>
                                 <span>商品详情:</span>
                                 <span 
                                     style={{color:"#1890ff",marginTop:"15px"}} 

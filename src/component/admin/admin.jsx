@@ -8,8 +8,8 @@ import Line from '../charts/line';
 import Pie from '../charts/pie';
 import Home from '../home/home';
 import Product from '../product/product';
-import Role from '../role/role';
-import User from '../user/user';
+import Role from '../../containers/role';
+import User from '../../containers/user';
 import Head from '../header/header'
 
 const {Footer, Sider, Content } = Layout;

@@ -33,7 +33,8 @@ export default function ProductAdd(props) {
         name,
         desc,
         detail,
-        price
+        price,
+        imgs
     } = props;
     /*card的返回按钮*/ 
     const title = (
@@ -88,7 +89,7 @@ export default function ProductAdd(props) {
                 />)}
                 </Item>
                 <Item  label="商品图片">
-                   <PictureWall /*ref={pw}*//>
+                   <PictureWall /*ref={pw}*/ imgs={imgs}/>
                 </Item>
                 <Item  label="商品详情" labelCol={{span: 2}} wrapperCol={{span: 18}}>
                    <RichTextEditor ref={editor} detail={detail}/>

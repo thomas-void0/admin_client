@@ -33,6 +33,7 @@ export class PictureWall extends Component {
     */
     handleChange = async ({ file,fileList }) => {
         const status = file.status;
+        console.log("file====>",file)
         if(status === "done"){ /*图片上传完成*/
             const result = file.response;
             if(result.status === 0){ /*图片上传成功*/
@@ -65,7 +66,8 @@ export class PictureWall extends Component {
     }
     render() {
         let {
-            fileList /*最新的fileList数组*/
+            fileList, /*最新的fileList数组*/
+            imgs
         }=this.props
         return (
             <PictureWallUI 
@@ -75,6 +77,7 @@ export class PictureWall extends Component {
                 handlePreview={this.handlePreview}
                 handleChange={this.handleChange}
                 handleCancel={this.handleCancel}
+                imgs={imgs}
             />
         )
     }
