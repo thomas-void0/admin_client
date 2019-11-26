@@ -5,6 +5,7 @@ import {reqGetRoles,reqAddRole,reqGetAuth} from '../api'
 import {message,Form,Tree} from 'antd'
 import menuList from '../config/initMenu';
 import ramInfo from '../tools/ramInfo';
+import localInfo from '../tools/localInfo';
 
 const { TreeNode } = Tree;
 
@@ -32,6 +33,12 @@ export class Role extends Component {
             )
             return pre
         },[])
+    }
+    /*选择表格某一行的单选框*/
+    onSelectCallback = (role)=>{
+        this.setState({
+            role
+        })
     }
     /*点击表格每一行触发的回调函数*/
     onRow = (role)=>{
@@ -119,9 +126,16 @@ export class Role extends Component {
         const auth_name = ramInfo.user.username;
         const result = await reqGetAuth({_id,menus,auth_time,auth_name});
         if(result.status === 0){
-            message.success(`给${this.state.name}添加权限成功`)
-            //重新请求数据
-            this.getRoles()
+            if(ramInfo.user.role._id === _id){ /*如果是给自己添加的权限，那么强制退出到login*/
+                ramInfo.user = {};
+                localInfo.removeLocalData();
+                this.props.history.replace("/login");
+                message.success(`当前用户的权限修改了,请重新登陆`)
+            }else{
+                message.success(`给${this.state.name}添加权限成功`)
+                //重新请求数据
+                this.getRoles()                
+            }
         }else{
             message.error(`给${this.state.name}添加权限失败`)
         }
@@ -138,6 +152,12 @@ export class Role extends Component {
             authList
         })
     }
+    componentWillUnmount() {
+        this.setState = (state, callback) => {
+            return;
+        }
+    }
+    
     render() {
         let {
             data,
@@ -165,6 +185,7 @@ export class Role extends Component {
                 authList={authList}
                 onSelect={this.onSelect}
                 checkedKeys={menus}
+                onSelectCallback={this.onSelectCallback}
             />
         )
     }

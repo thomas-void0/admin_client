@@ -41,33 +41,49 @@ export class Admin extends Component {
         })
         return {key,pathname}
     }
+    /*对路由权限表进行对比*/
+    isRouteAuth = (item)=>{
+        const {isPublic,key} = item;
+        const menus = ramInfo.user.role.menus;
+        const username = ramInfo.user.username;
+        if(username === "admin" || menus.indexOf(key) !== -1 || isPublic){
+            return true
+        }else if(item.children){ //如果有某个子路由的权限，那么也显示这个
+            return  !!item.children.find(child =>menus.indexOf(child.key) !== -1)
+        }
+        return false
+    }
     // 初始化菜单
     initMenu=list=>{
         return list.map(item=>{
-            if(!item.children){
-                return(
-                    <Menu.Item key={item.key}>
-                        <Link to={item.key}>
+            const flag = this.isRouteAuth(item)
+            if(flag){
+                if(!item.children){
+                    return(
+                        <Menu.Item key={item.key}>
+                            <Link to={item.key}>
+                                <Icon type={item.icon} />
+                                <span>{item.title}</span>                        
+                            </Link>
+                    </Menu.Item>
+                    )
+                }else{
+                    return(
+                        <SubMenu
+                        key={item.key}
+                        title={
+                        <span>
                             <Icon type={item.icon} />
-                            <span>{item.title}</span>                        
-                        </Link>
-                  </Menu.Item>
-                )
-            }else{
-                return(
-                    <SubMenu
-                    key={item.key}
-                    title={
-                      <span>
-                        <Icon type={item.icon} />
-                        <span>{item.title}</span>
-                      </span>
-                    }
-                  >
-                    {this.initMenu(item.children)}
-                  </SubMenu>
-                )
+                            <span>{item.title}</span>
+                        </span>
+                        }
+                    >
+                        {this.initMenu(item.children)}
+                    </SubMenu>
+                    )
+                }
             }
+
         })
     }
     // 获取导航内容

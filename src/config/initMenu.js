@@ -2,7 +2,8 @@ export default [
     {
         title:"首页",
         key:"/home",
-        icon:"home"
+        icon:"home",
+        isPublic:true
     },
     {
         title:"商品",

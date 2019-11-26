@@ -48,7 +48,8 @@ export default function Role(props) {
         name,
         authList,
         onSelect,
-        checkedKeys
+        checkedKeys,
+        onSelectCallback
     }=props
     const title =(
         <span>
@@ -80,7 +81,12 @@ export default function Role(props) {
                     showQuickJumper:true,
                     hideOnSinglePage:true,
                 }}
-                rowSelection={{type:"radio",selectedRowKeys:role._id}}
+                rowSelection={{
+                    type:"radio",
+                    selectedRowKeys:role._id,
+                    onSelect:onSelectCallback
+
+                }}
                 onRow={onRow}
             />
             <Modal

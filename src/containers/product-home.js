@@ -153,7 +153,8 @@ export class ProductHome extends Component {
             total,
             loading,
             searchName,
-            searchType
+            searchType,
+            pageNum
         }=this.state
         return (
             <ProductHomeUI 
@@ -167,6 +168,7 @@ export class ProductHome extends Component {
                 searchName={searchName}
                 searchType={searchType}
                 handleSelect={this.handleSelect}
+                pageNum={pageNum}
             />
         )
     }

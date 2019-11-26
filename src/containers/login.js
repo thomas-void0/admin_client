@@ -15,7 +15,6 @@ export class Login extends Component {
             // 将账号密码发送到后台
             const {username,password} = values;
             const reqData = await reqLogin(username,password);
-            console.log(reqData)
             if(reqData.status === 0){ //登陆成功
               /*登陆成功后，将数据分别保存到内存中和localStrage中，以便下次免登录。*/ 
               localInfo.saveLocalData(reqData.data);

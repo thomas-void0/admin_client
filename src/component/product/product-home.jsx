@@ -22,7 +22,8 @@ export default function ProductHome(props) {
         handleKeyWordsInput,
         searchName,
         searchType,
-        handleSelect
+        handleSelect,
+        pageNum
     }=props
     const title = (
         <Form layout="inline">
@@ -58,6 +59,7 @@ export default function ProductHome(props) {
                 dataSource={data}
                 bordered
                 pagination={{
+                    current:pageNum,
                     defaultPageSize:3,
                     total:total,
                     showQuickJumper:true,

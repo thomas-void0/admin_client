@@ -52,7 +52,6 @@ export default function Add(props) {
                         ],
                     })(
                         <Input
-                            // type="password"
                             placeholder="输入密码"
                         />,
                     )}
