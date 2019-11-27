@@ -4,20 +4,17 @@ import AdminUI from '../component/admin/admin'
 import ramInfo from '../tools/ramInfo';
 import {Redirect} from 'react-router-dom';
 import menuList from '../config/initMenu';
-import { Menu, Icon,Modal } from 'antd';
-import {Link} from 'react-router-dom'
+import {Modal } from 'antd';
 import {changeTimeFunc} from '../actions/actionOperations/action-admin-operation';
 import localInfo from '../tools/localInfo';
 import {reqWeather} from '../api';
 
 const { confirm } = Modal;
-const { SubMenu } = Menu;
 
 export class Admin extends Component {
     constructor(props){
         super(props)
         this.state={
-            initDom:null,
             dayPictureUrl:"",
             weather:"",
         }
@@ -40,51 +37,6 @@ export class Admin extends Component {
             }
         })
         return {key,pathname}
-    }
-    /*对路由权限表进行对比*/
-    isRouteAuth = (item)=>{
-        const {isPublic,key} = item;
-        const menus = ramInfo.user.role.menus;
-        const username = ramInfo.user.username;
-        if(username === "admin" || menus.indexOf(key) !== -1 || isPublic){
-            return true
-        }else if(item.children){ //如果有某个子路由的权限，那么也显示这个
-            return  !!item.children.find(child =>menus.indexOf(child.key) !== -1)
-        }
-        return false
-    }
-    // 初始化菜单
-    initMenu=list=>{
-        return list.map(item=>{
-            const flag = this.isRouteAuth(item)
-            if(flag){
-                if(!item.children){
-                    return(
-                        <Menu.Item key={item.key}>
-                            <Link to={item.key}>
-                                <Icon type={item.icon} />
-                                <span>{item.title}</span>                        
-                            </Link>
-                    </Menu.Item>
-                    )
-                }else{
-                    return(
-                        <SubMenu
-                        key={item.key}
-                        title={
-                        <span>
-                            <Icon type={item.icon} />
-                            <span>{item.title}</span>
-                        </span>
-                        }
-                    >
-                        {this.initMenu(item.children)}
-                    </SubMenu>
-                    )
-                }
-            }
-
-        })
     }
     // 获取导航内容
     getNavTitle=()=>{
@@ -124,13 +76,6 @@ export class Admin extends Component {
         const {dayPictureUrl,weather} = await reqWeather("成都");
         this.setState({dayPictureUrl,weather})
     }
-    UNSAFE_componentWillMount(){
-        //初始化菜单
-        const initData = this.initMenu(menuList);
-        this.setState({
-            initDom:initData
-        })
-    }
     componentDidMount() {
         this.timer = setInterval(()=>{
             if(this.props.changeTime instanceof Function){
@@ -151,7 +96,6 @@ export class Admin extends Component {
         const {key,pathname} = this.getOpenKey();
         return (
             <AdminUI 
-                initDom={this.state.initDom}
                 time={this.props.time}
                 showConfirm={this.showConfirm}
                 dayPictureUrl={this.state.dayPictureUrl}
