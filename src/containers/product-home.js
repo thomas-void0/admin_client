@@ -8,6 +8,8 @@ import {
     message
 } from 'antd';
 import {reqProducts,reqSearchProducts,reqUpdateStatus} from '../api'
+import {getImgsFromDetailAction} from '../actions/actionOperations/action-picture-wall-operation'
+import {BASE_IMG_URL} from '../tools/constants'
 
 
 export class ProductHome extends Component {
@@ -80,6 +82,18 @@ export class ProductHome extends Component {
     }
     /*修改商品信息*/
     changeInfo = (product)=>{
+        console.log("product===>",product)
+        //路由跳转之前发起action
+        const {imgs} = product;
+        const images = imgs.map((item,index)=>{
+           return {
+                uid: -index,/*每个file都是自己唯一的id*/
+                name: item,/*图片文件名*/
+                status: 'done',/*图片状态 done-已上传*/
+                url: BASE_IMG_URL + item,
+            }
+        })
+        this.props.changeImgs(images)
         this.props.history.push("/product/add",product)/*将数据携带到添加界面中*/
     }
     /*更新状态*/
@@ -178,8 +192,10 @@ const mapStateToProps = (state) => ({
     
 })
 
-const mapDispatchToProps = {
-    
-}
+const mapDispatchToProps = dispatch =>({
+        changeImgs:(imgs)=>{
+        dispatch(getImgsFromDetailAction(imgs))
+    }
+})
 const ProductHomeForm = Form.create({})(ProductHome);
 export default connect(mapStateToProps, mapDispatchToProps)(ProductHomeForm)

@@ -1,4 +1,4 @@
-import {GET_FILELIST,CHANGE_FILELIST} from '../actionTypes/action-picture-wall-type';
+import {GET_FILELIST,CHANGE_FILELIST,DETAIL_IMGS} from '../actionTypes/action-picture-wall-type';
 
 /*改变filelist数组*/
 export const changeFileListAction = (newFileList)=>{
@@ -13,3 +13,10 @@ export const getFileListAction = ()=>{
         type:GET_FILELIST,
     }
 }   
+
+export const getImgsFromDetailAction=(imgs)=>{
+    return {
+        type:DETAIL_IMGS,
+        imgs
+    }
+}

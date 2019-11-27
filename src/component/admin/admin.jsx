@@ -10,7 +10,8 @@ import Home from '../home/home';
 import Product from '../product/product';
 import Role from '../../containers/role';
 import User from '../../containers/user';
-import Head from '../header/header'
+import Head from '../header/header';
+import NotFound from '../not-found/not-found';
 
 const {Footer, Sider, Content } = Layout;
 
@@ -37,6 +38,7 @@ function Admin(props) {
                 />
                 <Content style={{margin:"20px",backgroundColor:"#fff"}}>
                     <Switch>
+                        <Redirect from='/' to='/home' exact/>
                         <Route path="/home" exact component={Home}/>
                         <Route path="/category" component={Category}/>
                         <Route path="/product" component={Product}/>
@@ -45,7 +47,7 @@ function Admin(props) {
                         <Route path="/charts/line" component={Line}/>
                         <Route path="/charts/bar" component={Bar}/>
                         <Route path="/charts/pie" component={Pie}/>
-                        <Redirect to="/home" />
+                        <Route component={NotFound}/>
                     </Switch>
                  </Content>
               <Footer style={{backgroundColor:"white",textAlign:"center",fontSize:"24px",color:"#1890ff"}}>Are you ok?</Footer>

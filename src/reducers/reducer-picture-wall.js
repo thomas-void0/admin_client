@@ -1,4 +1,4 @@
-import {GET_FILELIST,CHANGE_FILELIST} from '../actions/actionTypes/action-picture-wall-type';
+import {GET_FILELIST,CHANGE_FILELIST,DETAIL_IMGS} from '../actions/actionTypes/action-picture-wall-type';
 
 const defaultValue = {
         fileList: [
@@ -17,6 +17,9 @@ export default (state=defaultValue,action)=>{
             newState.fileList = action.newFileList
             return newState
         case GET_FILELIST:
+            return newState
+        case DETAIL_IMGS:
+            newState.fileList = action.imgs;
             return newState
         default:
             return newState

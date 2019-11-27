@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import ProductDetailUI from '../component/product/product-detail'
 import {reqGetCategory} from '../api'
 
+
+
 export class ProductDetail extends Component {
     constructor(props){
         super(props)
@@ -65,8 +67,8 @@ const mapStateToProps = (state) => ({
     
 })
 
-const mapDispatchToProps = {
-    
-}
+const mapDispatchToProps = dispatch => ({
+
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)

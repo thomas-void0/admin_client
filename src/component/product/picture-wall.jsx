@@ -9,7 +9,6 @@ export default function PictureWall2(props) {
         handlePreview,
         handleChange,
         handleCancel,
-        imgs
     } = props;
     const uploadButton = (
       <div>
@@ -17,7 +16,6 @@ export default function PictureWall2(props) {
         <div className="ant-upload-text">上传</div>
       </div>
     );
-    console.log("fileList======",fileList);
     return (
         <div className="clearfix">
             <Upload

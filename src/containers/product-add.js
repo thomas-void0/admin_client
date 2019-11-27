@@ -14,7 +14,10 @@ export class ProductAdd extends Component {
             desc:null,
             detail:null,
             price:null,
-            imgs:null
+            imgs:null,
+            categoryId:null,
+            pCategoryId:null,
+            status:"add"
         }
         // this.pw = React.createRef();
         this.editor = React.createRef();
@@ -51,7 +54,7 @@ export class ProductAdd extends Component {
             }
             const product = {name,desc,price,imgs,detail,pCategoryId,categoryId}
             /*如果是更新，需要添加_id*/
-            if(this.isUpdate){
+            if(this.state.status === "update"){
                 product._id = this.product._id;
             }
             /*2,调用接口请求函数添加和更新*/ 
@@ -87,18 +90,38 @@ export class ProductAdd extends Component {
         const result = await reqCategoryData(parentId);
         if(result.status === 0){ /*数据请求成功*/
             const dataArr = result.data;
-            this.initOptions(dataArr);
+            // 如果是一级分类列表
+            if (parentId==='0') {
+                this.initOptions(dataArr);
+            } else { // 二级列表
+                return dataArr  // 返回二级列表 ==> 当前async函数返回的promsie就会成功且value为categorys
+            }
         }else{/*数据请求失败*/
             message.error("数据请求失败");
         }
     }
     /*初始化级联选择器数组*/
-    initOptions = (dataArr)=>{
+    initOptions = async (dataArr)=>{
         const categorys = dataArr.map(item=>({
             value: item._id,
             label: item.name,
             isLeaf: false,
         }))
+        //如果是二级分类商品的更新
+        const {status,pCategoryId} = this.state
+        if(status === "update" && pCategoryId !== '0'){
+           const subCategorys = await this.getCategorys(pCategoryId)
+           console.log("subCategorys===>",subCategorys)
+           //生成二级下拉列表
+           const childOptions = subCategorys.map(item=>({
+                    value: item._id,
+                    label: item.name,
+                    isLeaf: true,
+           }))
+           //关联到对应的一级option上
+           const targetOption = categorys.find(category => category.value === pCategoryId)
+           targetOption.children = childOptions;
+        }
         this.setState({
             options:categorys
         })
@@ -115,15 +138,24 @@ export class ProductAdd extends Component {
         this.product = this.props.location.state;
         if(!this.product){
             this.product = {}
+            this.setState({
+                status:"add"
+            })
+        }else{
+            this.setState({
+                status:"update"
+            })
         }
         if(this.product instanceof Object){
-            const {name,desc,detail,price,imgs} = this.product
+            const {name,desc,detail,price,imgs,pCategoryId,categoryId} = this.product
             this.setState({
                 name,
                 desc,
                 detail,
                 price,
-                imgs
+                imgs,
+                pCategoryId,
+                categoryId
             })
         }
     }
@@ -134,7 +166,9 @@ export class ProductAdd extends Component {
             desc,
             detail,
             price,
-            imgs
+            imgs,
+            categoryId,
+            pCategoryId,
         }=this.state
         return (
             <ProductAddUI 
@@ -151,6 +185,8 @@ export class ProductAdd extends Component {
                 detail={detail}
                 price={price}
                 imgs={imgs}
+                pCategoryId={pCategoryId}
+                categoryId={categoryId}
             />
         )
     }

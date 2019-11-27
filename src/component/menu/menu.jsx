@@ -8,7 +8,7 @@ export default function MenuUI(props) {
         <div>
           <div className="nav-title">
             <img src={logo} alt="logo"/>
-            <h1>咔咔后台</h1>
+            <h1>测试后台</h1>
           </div>
           <div>
           <Menu

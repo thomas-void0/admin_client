@@ -34,7 +34,9 @@ export default function ProductAdd(props) {
         desc,
         detail,
         price,
-        imgs
+        imgs,
+        categoryId,
+        pCategoryId,
     } = props;
     /*card的返回按钮*/ 
     const title = (
@@ -45,6 +47,13 @@ export default function ProductAdd(props) {
             </MyButton>
         </span>
     )
+    const categoryIds = [];
+    if(pCategoryId === "0"){ //说明是一级分类
+        categoryIds.push(categoryId);
+    }else{
+        categoryIds.push(pCategoryId);
+        categoryIds.push(categoryId);
+    }
     return (
         <Card title={title}>
             <Form {...formItemLayout}>
@@ -78,7 +87,7 @@ export default function ProductAdd(props) {
                 </Item>
                 <Item  label="商品分类">
                 {getFieldDecorator("categoryIds",{
-                        initialValue:[],
+                        initialValue:categoryIds,
                         rules:[
                             {required:true,message:"分类不能为空"},
                         ]
