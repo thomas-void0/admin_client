@@ -25,6 +25,7 @@ class User extends Component {
     /*获取用户列表*/
     initUser = async ()=>{
         const result = await reqGetUser()
+        console.log("result=>",result)
         if(result.status === 0){
             const initUserList = result.data.users;
             const roles = result.data.roles;

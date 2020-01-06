@@ -2,20 +2,51 @@ import React from 'react'
 import { Upload, Icon, Modal } from 'antd';
 
 export default function PictureWall2(props) {
-    const { 
-        previewVisible, 
-        previewImage, 
-        fileList,
-        handlePreview,
-        handleChange,
-        handleCancel,
-    } = props;
+    const fileList= [
+        {
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+          uid: '-2',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+          uid: '-3',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+          uid: '-4',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+          uid: '-5',
+          name: 'image.png',
+          status: 'error',
+        },
+      ]
+      
     const uploadButton = (
       <div>
         <Icon type="plus" />
         <div className="ant-upload-text">上传</div>
       </div>
     );
+    const { 
+      previewVisible, 
+      previewImage, 
+      handlePreview,
+      handleChange,
+      handleCancel,
+    } = props;
     return (
         <div className="clearfix">
             <Upload
@@ -30,7 +61,7 @@ export default function PictureWall2(props) {
             {fileList.length >= 8 ? null : uploadButton}
             </Upload>
             <Modal 
-                visible={previewVisible} 
+                visible={true} 
                 footer={null} 
                 onCancel={()=>{handleCancel()}}
             >

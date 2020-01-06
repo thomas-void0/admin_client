@@ -88,7 +88,7 @@ export default function Role(props) {
 
                 }}
                 onRow={onRow}
-            />
+            /> 
             <Modal
                 title="添加角色"
                 visible={addVisible}

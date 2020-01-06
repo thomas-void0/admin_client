@@ -13,3 +13,5 @@ export default {
         store.remove(USER_KEY);
     }
 }
+
+

@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**测试后台管理系统，前端源码 [JS版本]。**
 
-## Available Scripts
+**项目说明**
 
-In the project directory, you can run:
+本项目是基于javaScript + react搭建的一款后台管理系统demo。
 
-### `npm start`
+**项目启动说明:**
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. 安装mongodb，并且启动mongodb服务。
+2. 下载node后台代码。[**后台代码地址**](https://github.com/lmxyjy/admin_final)
+3. 在下载后的后台代码根目录 `npm install` 安装依赖。
+4. 在后台代码根目录 `npm start` 启动后台。
+5. 下载本仓库前端代码
+6. 在前端代码根目录`npm install` 安装所需依赖。
+7. 在前端根目录`npm start`运行项目。 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**项目技术选型:**
 
-### `npm test`
+本次项目主要用到的技术是：
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8. **环境搭建:** React官方脚手架 `create-react-app` 。
 
-### `npm run build`
+9.  **框架部分:** 选择了`React`。
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+10. **路由部分：** 选择了`React-router`。
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+11. **数据管理部分:** 选择了`Redux` + `React-redux` 管理部分数据。使用`Redux-thunk`中间件做了异步数据请求。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+12. **UI组件库:** 选择了`Ant Design`。
 
-### `npm run eject`
+13. **Css样式:** 选择了预编译语言`Less`。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+14. **数据请求:** 选择了`axios` 。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+15. **项目图表部分:** 简单使用了`echarts` 。
+   
+16. **富文本编辑器部分:** 使用了`react-draft-wysiwyg` 。
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+17. **百度天气接口:** 使用了`jsonp`库做jsonp请求。
